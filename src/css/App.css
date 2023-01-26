@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+
+}
+
+
+/*main (common)*/
+.wrapper {width:100%; max-width:1280px; margin:0 auto; position:relative;}
+
+#header { font-size:2em; cursor:pointer;}
+#header > .wrapper {padding:20px 10px;}
+#header > .wrapper > .user {position:absolute; top:20px; right:20px;}
+#header > .wrapper > h1 {font-family: 'Orbitron', sans-serif; display:inline-block;}
+#header > .wrapper > .favorite {position:absolute; top:20px; left:20px;}
+#footer {font-family: 'Orbitron', sans-serif; position:fixed; width:100%; left:0; bottom:0;padding:20px 0;background:#fff; border-top:2px solid #000;}
+
+.addInput {display:inline-block; width:100%; max-width:540px; height:60px; line-height:40px; font-size: 1.5em; border:2px solid #111; padding-left:5px;}
+.addBtn {background-color:#fff;border:0; font-size:4em; display:inline-block; vertical-align: middle; margin-top:20px; cursor:pointer;}
+
+#inputSection {padding-top:30px;}
+
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
