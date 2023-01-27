@@ -2,6 +2,16 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+
+/*
+Style Guide (color) - 상단이 가장 진한 색
+BFEAF5
+#91D8E4
+#BFEAF5
+#EAFDFC
+*/
+
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Orbitron:wght@700;800;900&display=swap');
 
 html, body, div, span, applet, object, iframe,
@@ -31,7 +41,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size:16px;
 	line-height: 1.5;

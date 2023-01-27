@@ -5,7 +5,7 @@
 
 
 /*main (common)*/
-.wrapper {width:100%; max-width:1280px; margin:0 auto; position:relative;}
+.wrapper {width:100%; max-width:1280px; margin:0 auto; position:relative; padding:0 10px;}
 
 #header { font-size:2em; cursor:pointer;}
 #header > .wrapper {padding:20px 10px;}
@@ -13,17 +13,40 @@
 #header > .wrapper > h1 {font-family: 'Orbitron', sans-serif; display:inline-block;}
 #header > .wrapper > .favorite {position:absolute; top:20px; left:20px;}
 #footer {font-family: 'Orbitron', sans-serif; position:fixed; width:100%; left:0; bottom:0;padding:20px 0;background:#fff; border-top:2px solid #000;}
+.er-info {background-color: 	#BFEAF5; display:inline-block;}
 
-.addInput {display:inline-block; width:100%; max-width:540px; height:60px; line-height:40px; font-size: 1.5em; border:2px solid #111; padding-left:5px;}
+#section1 {margin-top:5vh; padding-bottom:6.5vh}
+.addInput {display:inline-block; width:100%; max-width:540px; height:60px; line-height:40px; font-size: 1.5em; border:2px solid #111; box-sizing:border-box;margin:0;padding-left:10px}
 .addBtn {background-color:#fff;border:0; font-size:4em; display:inline-block; vertical-align: middle; margin-top:20px; cursor:pointer;}
 
 #inputSection {padding-top:30px;}
 
+#selectSection {display:flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif;}
+#selectSection > li {padding:5px 25px; font-size:1.5em; cursor:pointer; color:#999;}
+.textColor {color:#000; font-weight: bold; }
+
+.listContainer {margin-top:5vh;  display:flex; align-items: left; justify-content: center; flex-flow:row wrap;}
+.listContainer > li {margin:1vh 1vh; padding:15px 5px; border:2px solid #000; min-width:300px; position: relative;}
 
 
-
+.todoBtn {margin-top:1.5vh; display:flex; justify-content: center;}
+.todoBtn > li {margin:10px;padding:5px 8px; background:	#eee; border-radius:5px; cursor:pointer;}
+.todoBtn > li.active {background:#BFEAF5}
+.closeBtn {position:absolute; top:5px; right:5px; font-size:35px;cursor:pointer;}
+.lc-rt {margin-top:2vh}
+.lc-or-title {font-weight:bold;}
+.lc-rt-title {font-weight:bold;}
 @media (prefers-reduced-motion: no-preference) {
   
+}
+
+
+@media screen and (max-width:767px) {
+  .listContainer {flex-flow:column wrap;}
+  #header { font-size:2em; cursor:pointer;}
+  #header > .wrapper {padding:5px 10px;}
+  #header > .wrapper > h1 {font-size:0.5em;}
+  #footer {font-size:.8em;}
 }
 
 
