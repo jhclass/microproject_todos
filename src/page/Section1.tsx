@@ -70,9 +70,25 @@ function Section1() {
                                 <ul ref={provide.innerRef} {...provide.droppableProps}>
                                     <Draggable draggableId='first' index={0}>
                                         {(provide)=>
-                                            <li></li>
+                                            <li 
+                                                ref={provide.innerRef}
+                                                {...provide.dragHandleProps}
+                                                {...provide.draggableProps}
+                                            >
+                                                <span>One</span>
+                                            </li>
                                         }
-
+                                    </Draggable>
+                                    <Draggable draggableId='second' index={1}>
+                                        {(provide)=>
+                                            <li 
+                                                ref={provide.innerRef}
+                                                {...provide.dragHandleProps}
+                                                {...provide.draggableProps}
+                                            >
+                                                <span>Two</span>
+                                            </li>
+                                        }
                                     </Draggable>
                                     
                                 </ul>
