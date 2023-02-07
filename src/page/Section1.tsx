@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import { useRecoilState, atom } from 'recoil';
 import Listcontainer from './Listcontainer';
 import {todoState} from './atoms';
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 interface IForm {
     toDo:string;
 }
@@ -31,6 +32,9 @@ function Section1() {
         event.currentTarget.classList.add('textColor');
     }
     
+    const onDragEnd = () => {
+
+    }
     //console.log('어쩔',errors.toDo?.message);
     return (
         <div id="section1">
@@ -60,7 +64,23 @@ function Section1() {
                     <div className='er-info'><span>{errors.toDo?.message}</span></div>
                 </div>{ /* input */}
                 <ul className='listContainer'>
-                    {todos.map((todo)=><Listcontainer key={todo.id} {...todo}/>)}
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId='one'>
+                            {(provide)=>
+                                <ul ref={provide.innerRef} {...provide.droppableProps}>
+                                    <Draggable draggableId='first' index={0}>
+                                        {(provide)=>
+                                            <li></li>
+                                        }
+
+                                    </Draggable>
+                                    
+                                </ul>
+                            }
+                        </Droppable>
+                        
+                    </DragDropContext>
+                  
                     
                 </ul>{ /* box */}
             </div>
