@@ -1,6 +1,6 @@
-import { IToDo} from "./atoms";
 
-function Listcontainer({text,today}:IToDo){
+
+function Listcontainer(){
     
     return (
         

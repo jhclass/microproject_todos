@@ -1,27 +1,30 @@
 
 import {useForm} from 'react-hook-form';
-import { useRecoilState, atom } from 'recoil';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import Listcontainer from './Listcontainer';
-import {todoState} from './atoms';
-import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {toDoState} from './atoms';
+import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
 interface IForm {
     toDo:string;
 }
 
+const Boards = styled.div``;
+const Board = styled.ul``;
+const Card = styled.li``;
+
+
 function Section1() {
-    const [todos,setTodos] = useRecoilState(todoState);
+    const [toDos,setTodos] = useRecoilState(toDoState);
     const {register,handleSubmit,formState:{errors}, setFocus} = useForm<IForm>();
     const prohibited = /[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]/;
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth()+1;
-    let date = today.getDate(); 
-    let hour = today.getHours();
-    let min = today.getMinutes();
-    const onValid = ({toDo}:IForm)=>{
-        setTodos(oldToDos=>[{text:toDo, id:Date.now(), today:`${year}년 ${month}월 ${date}일 ${hour}시 ${min}분`, category:"TO_DO"},...oldToDos])
-        setFocus("toDo",{shouldSelect:true});
-    }
+    // let today = new Date();
+    // let year = today.getFullYear();
+    // let month = today.getMonth()+1;
+    // let date = today.getDate(); 
+    // let hour = today.getHours();
+    // let min = today.getMinutes();
+ 
     const onClick = (event:React.MouseEvent<HTMLElement>) => {
         console.log(event.currentTarget.textContent);
         
@@ -32,8 +35,20 @@ function Section1() {
         event.currentTarget.classList.add('textColor');
     }
     
-    const onDragEnd = () => {
-
+    const onDragEnd = ({draggableId,destination,source}:DropResult) => {
+        if(!destination) return;
+        setTodos((oldToDos:any)=>{
+            const copyToDos = [...oldToDos];
+            const copyAnd = copyToDos.slice(source.index,source.index+1);
+            console.log('a',copyAnd);
+            copyToDos.splice(source.index,1);
+            
+            copyToDos.splice(destination.index,0,`${copyAnd[0]}`)
+            console.log(copyToDos);
+            return copyToDos;
+            
+        })
+        console.log(draggableId,destination.index,source.index);
     }
     //console.log('어쩔',errors.toDo?.message);
     return (
@@ -57,44 +72,37 @@ function Section1() {
 
                 
                 <div id="inputSection">
-                    <form onSubmit={handleSubmit(onValid)}>
-                        <input {...register("toDo",{required:"할일을 입력하여 주세요 :)",pattern:{value:prohibited,message:"잘못된 작성방식입니다."}})} className="addInput" type="text" placeholder="무엇을 해야하나요?"/><br/>
-                        <button className="addBtn"><span className="xi-plus-circle-o"></span></button>
-                    </form>
+                    
                     <div className='er-info'><span>{errors.toDo?.message}</span></div>
                 </div>{ /* input */}
                 <ul className='listContainer'>
                     <DragDropContext onDragEnd={onDragEnd}>
+                        <Boards>
                         <Droppable droppableId='one'>
                             {(provide)=>
-                                <ul ref={provide.innerRef} {...provide.droppableProps}>
-                                    <Draggable draggableId='first' index={0}>
-                                        {(provide)=>
-                                            <li 
-                                                ref={provide.innerRef}
-                                                {...provide.dragHandleProps}
-                                                {...provide.draggableProps}
-                                            >
-                                                <span>One</span>
-                                            </li>
-                                        }
-                                    </Draggable>
-                                    <Draggable draggableId='second' index={1}>
-                                        {(provide)=>
-                                            <li 
-                                                ref={provide.innerRef}
-                                                {...provide.dragHandleProps}
-                                                {...provide.draggableProps}
-                                            >
-                                                <span>Two</span>
-                                            </li>
-                                        }
-                                    </Draggable>
+                                <Board ref={provide.innerRef} {...provide.droppableProps}>
+                                    {toDos.map((toDo,index,el)=>(
+                                       <Draggable draggableId={toDo} index={index} key={toDo}>
+                                            {(provide)=>
+                                                
+                                                <Card
+                                                    ref={provide.innerRef}
+                                                    {...provide.dragHandleProps}
+                                                    {...provide.draggableProps}
+                                                >
+                                                    <span>{toDo}</span>
+                                                </Card>
+                                            }
+                                        </Draggable>     
+
+                                    ))
                                     
-                                </ul>
+                                    }   
+                                    {provide.placeholder}
+                                </Board>
                             }
                         </Droppable>
-                        
+                        </Boards>
                     </DragDropContext>
                   
                     
