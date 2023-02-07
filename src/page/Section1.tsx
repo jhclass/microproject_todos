@@ -82,18 +82,7 @@ function Section1() {
                             {(provide)=>
                                 <Board ref={provide.innerRef} {...provide.droppableProps}>
                                     {toDos.map((toDo,index,el)=>(
-                                       <Draggable draggableId={toDo} index={index} key={toDo}>
-                                            {(provide)=>
-                                                
-                                                <Card
-                                                    ref={provide.innerRef}
-                                                    {...provide.dragHandleProps}
-                                                    {...provide.draggableProps}
-                                                >
-                                                    <span>{toDo}</span>
-                                                </Card>
-                                            }
-                                        </Draggable>     
+                                       <Listcontainer key={toDo} toDo={toDo} index={index}></Listcontainer>
 
                                     ))
                                     
