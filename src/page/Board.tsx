@@ -13,23 +13,30 @@ interface IBoardProps {
     boardId:string
 }
 
+const Title = styled.h2`
+text-align:center;
+`;
+
 function Board({toDos,boardId}:IBoardProps){
     return(
-    
-    <Droppable droppableId={boardId}>
-        {(provide)=>
-            <Wrapper ref={provide.innerRef} {...provide.droppableProps}>
-                {toDos.map((toDo,index,el)=>(
-                <Listcontainer key={toDo} toDo={toDo} index={index}></Listcontainer>
+    <Wrapper>
+        <Title>{boardId}</Title>
+        <Droppable droppableId={boardId}>
+            {(provide)=>
+                <Wrapper ref={provide.innerRef} {...provide.droppableProps}>
+                    {toDos.map((toDo,index,el)=>(
+                    <Listcontainer key={toDo} toDo={toDo} index={index}></Listcontainer>
 
-                ))
-                
-                }   
-                {provide.placeholder}
-            </Wrapper>
-        }
-    </Droppable>
- 
+                    ))
+                    
+                    }   
+                    {provide.placeholder}
+                </Wrapper>
+            }
+        </Droppable>
+    
+    </Wrapper>
+    
     );
 }
 

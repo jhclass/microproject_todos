@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import Board from './Board';
 import {toDoState} from './atoms';
-import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
-import { brotliCompress } from 'zlib';
+import {DragDropContext, DropResult} from 'react-beautiful-dnd';
+
 interface IForm {
     toDo:string;
 }
@@ -23,6 +23,7 @@ const Boards = styled.div`
 display:grid;
 width:100%;
 grid-template-columns: repeat(3,1fr);
+gap:20px;
 `;
 
 
@@ -47,8 +48,22 @@ function Section1() {
         event.currentTarget.classList.add('textColor');
     }
     
-    const onDragEnd = ({draggableId,destination,source}:DropResult) => {
-       
+    const onDragEnd = (info:DropResult) => {
+       const {destination, draggableId, source} = info;
+        if(!destination)return;
+        if(destination?.droppableId===source.droppableId){
+             //같은보드에서 움직인 경우
+             setTodos((oldToDos)=>{
+                const boardCopy = [...oldToDos[source.droppableId]];
+                return {
+                    ...oldToDos,
+                }
+
+             });
+
+        }else{
+            //다른보드로 이동한 경우
+        }
         
         console.log('finished',source,destination);
     }
