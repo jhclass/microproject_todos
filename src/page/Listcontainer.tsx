@@ -1,7 +1,7 @@
 import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { darkTheme } from '../theme';
+
 
 const Card = styled.li`
 background-color: ${(props)=>props.theme.cardColor};
@@ -9,6 +9,7 @@ padding:10px 10px;
 border-radius:5px;
 margin-bottom:5px;
 `;
+
 interface IDraggabbleCardProps {
     toDo:string,
     index:number,
@@ -17,16 +18,13 @@ interface IDraggabbleCardProps {
 function Listcontainer({toDo,index}:IDraggabbleCardProps){
     
     return (
-        
-       
         <Draggable draggableId={toDo} index={index} key={toDo}>
             {(provide)=>
-                
                 <Card
                     ref={provide.innerRef}
                     {...provide.dragHandleProps}
                     {...provide.draggableProps}
-                    theme={darkTheme}
+                    
                 >
                     <span>{toDo}</span>
                 </Card>

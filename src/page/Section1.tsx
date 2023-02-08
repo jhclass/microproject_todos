@@ -2,16 +2,28 @@
 import {useForm} from 'react-hook-form';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import Listcontainer from './Listcontainer';
+import Board from './Board';
 import {toDoState} from './atoms';
 import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
+import { brotliCompress } from 'zlib';
 interface IForm {
     toDo:string;
 }
+const Wrapper = styled.div`
+display:flex;
+max-width:1080px;
+width:100%;
+margin:0 auto; 
+justify-content:center;
 
-const Boards = styled.div``;
-const Board = styled.ul``;
-const Card = styled.li``;
+
+
+`;
+const Boards = styled.div`
+display:grid;
+width:100%;
+grid-template-columns: repeat(3,1fr);
+`;
 
 
 function Section1() {
@@ -36,19 +48,9 @@ function Section1() {
     }
     
     const onDragEnd = ({draggableId,destination,source}:DropResult) => {
-        if(!destination) return;
-        setTodos((oldToDos:any)=>{
-            const copyToDos = [...oldToDos];
-            const copyAnd = copyToDos.slice(source.index,source.index+1);
-            console.log('a',copyAnd);
-            copyToDos.splice(source.index,1);
-            
-            copyToDos.splice(destination.index,0,`${copyAnd[0]}`)
-            console.log(copyToDos);
-            return copyToDos;
-            
-        })
-        console.log(draggableId,destination.index,source.index);
+       
+        
+        console.log('finished',source,destination);
     }
     //console.log('어쩔',errors.toDo?.message);
     return (
@@ -77,21 +79,16 @@ function Section1() {
                 </div>{ /* input */}
                 <ul className='listContainer'>
                     <DragDropContext onDragEnd={onDragEnd}>
-                        <Boards>
-                        <Droppable droppableId='one'>
-                            {(provide)=>
-                                <Board ref={provide.innerRef} {...provide.droppableProps}>
-                                    {toDos.map((toDo,index,el)=>(
-                                       <Listcontainer key={toDo} toDo={toDo} index={index}></Listcontainer>
-
-                                    ))
-                                    
-                                    }   
-                                    {provide.placeholder}
-                                </Board>
-                            }
-                        </Droppable>
-                        </Boards>
+                        <Wrapper>
+                            <Boards>
+                                {Object.keys(toDos).map((boardId,index)=>      
+                                <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
+                                
+                                )}
+                                
+                            </Boards>
+                        </Wrapper>
+                        
                     </DragDropContext>
                   
                     
