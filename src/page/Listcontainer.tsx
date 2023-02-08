@@ -1,3 +1,4 @@
+import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { darkTheme } from '../theme';
@@ -26,7 +27,6 @@ function Listcontainer({toDo,index}:IDraggabbleCardProps){
                     {...provide.dragHandleProps}
                     {...provide.draggableProps}
                     theme={darkTheme}
-                    
                 >
                     <span>{toDo}</span>
                 </Card>
@@ -35,4 +35,4 @@ function Listcontainer({toDo,index}:IDraggabbleCardProps){
           
     );
 }
-export default Listcontainer;
+export default React.memo(Listcontainer);
