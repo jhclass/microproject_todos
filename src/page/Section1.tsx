@@ -55,8 +55,13 @@ function Section1() {
              //같은보드에서 움직인 경우
              setTodos((oldToDos)=>{
                 const boardCopy = [...oldToDos[source.droppableId]];
+                console.log('a',boardCopy);
+                boardCopy.splice(source.index,1);
+                boardCopy.splice(destination.index,0,draggableId);
+            
                 return {
                     ...oldToDos,
+                    [source.droppableId]:boardCopy,
                 }
 
              });
