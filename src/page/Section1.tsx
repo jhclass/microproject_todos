@@ -68,6 +68,18 @@ function Section1() {
 
         }else{
             //다른보드로 이동한 경우
+            setTodos(allBoards=>{
+                const sourceBoard = [...allBoards[source.droppableId]]; //현재보드
+                const destinationBoard = [...allBoards[destination.droppableId]]; //바뀐보드
+                sourceBoard.splice(source.index,1); //소스보드에서 지우고
+                destinationBoard.splice(destination.index,0,draggableId); //옮기는 보드에서 추가
+                return { //내용을 리턴해줘야지~
+                    ...allBoards,
+                    [source.droppableId]:sourceBoard,
+                    [destination.droppableId]:destinationBoard
+
+                }
+            });
         }
         
         console.log('finished',source,destination);
